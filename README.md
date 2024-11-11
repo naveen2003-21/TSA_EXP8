@@ -21,8 +21,8 @@ Step 7: Plot Simulated Series and Display the simulated data.
 
 ## PROGRAM:
 ```
-Developed By : ISHWARYA V
-Reg no. : 212221240016
+Developed By : NAVEEN KUMAR A
+Reg no. : 212221240032
 ```
 ```
 # Importing Packages
