@@ -1,33 +1,77 @@
 # Ex.No: 08     MOVINTG AVERAGE MODEL AND EXPONENTIAL SMOOTHING
 ### Date: 
 
-
-### AIM:
+## AIM:
 To implement Moving Average Model and Exponential smoothing Using Python.
-### ALGORITHM:
-1. Import necessary libraries
-2. Read the electricity time series data from a CSV file,Display the shape and the first 20 rows of
-the dataset
-3. Set the figure size for plots
-4. Suppress warnings
-5. Plot the first 50 values of the 'Value' column
-6. Perform rolling average transformation with a window size of 5
-7. Display the first 10 values of the rolling mean
-8. Perform rolling average transformation with a window size of 10
-9. Create a new figure for plotting,Plot the original data and fitted value
-10. Show the plot
-11. Also perform exponential smoothing and plot the graph
-### PROGRAM:
 
-### OUTPUT:
+## ALGORITHM:
+Step 1: Import Packages by Loading required libraries.
 
-Moving Average
+Step 2: Read Dataset, Import data from a CSV file.
 
-Plot Transform Dataset
+Step 3: Generate White Noise by Creating random noise with specified mean and standard deviation.
 
-Exponential Smoothing
+Step 4: Apply Moving Average by Calculating moving averages over the noise.
 
+Step 5: Plot Moving Average Series and Visualize the moving average data.
 
+Step 6: Simulate ARMA Process to Generate data using ARMA model with given coefficients.
 
-### RESULT:
+Step 7: Plot Simulated Series and Display the simulated data.
+
+## PROGRAM:
+```
+Developed By : ISHWARYA V
+Reg no. : 212221240016
+```
+```
+# Importing Packages
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+from statsmodels.tsa.arima_process import ArmaProcess
+
+# Reading Dataset
+data = pd.read_csv("/content/Turbine_Data.csv")
+
+# Generating White Noise
+mean = 0
+std = 1
+n = len(data)
+white_noise = np.random.normal(mean, std, size=n)
+
+data['WhiteNoise'] = white_noise
+w_series = pd.Series(white_noise)
+
+# Applying Moving Average
+window_size = 3
+windows = w_series.rolling(window_size)
+moving_averages = windows.mean()
+
+# Plotting Moving Average Series
+plt.figure(figsize=(18, 6))
+plt.plot(moving_averages)
+plt.title("Moving Average Series", fontsize=14)
+plt.xlabel("Time", fontsize=14)
+plt.show()
+
+# Simulating ARMA Process
+ar1 = np.array([1])
+ma1 = np.array([1, 0.6])
+data_subset = data['ActivePower'].iloc[:100]
+MA_object = ArmaProcess(ar1, ma1)
+simulated_data = MA_object.generate_sample(nsample=100)
+simulated_series = pd.Series(simulated_data, index=data_subset.index)
+
+# Plotting Simulated MA(1) Series
+plt.plot(simulated_series)
+plt.title("MA(1), $\\theta$ = 0.6")
+plt.show()
+```
+
+## OUTPUT:
+
+![t8](https://github.com/Ishu-Vasanth/TSA_EXP8/assets/94154614/84697cb2-8b68-48dd-a46f-6ee0bfd43e2a)
+
+## RESULT:
 Thus we have successfully implemented the Moving Average Model and Exponential smoothing using python.
